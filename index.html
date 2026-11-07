@@ -2,8 +2,6 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>从数据到决策：14 个项目的全景工作流拓扑 · 张培福 (Peifu Zhang)</title>
 <style>
   :root {
     --bg: #fbfaf7;
@@ -34,18 +32,14 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
   body {
+    width: 1680px;
     background: var(--bg);
     color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     font-size: 15px;
     line-height: 1.7;
-    padding: 40px 24px 60px;
+    padding: 56px 68px 50px;
     -webkit-font-smoothing: antialiased;
-  }
-
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
   }
 
   /* 顶栏 Hero 区块 */
@@ -53,11 +47,9 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-bottom: 22px;
+    padding-bottom: 24px;
     border-bottom: 2px solid var(--ink);
     margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 20px;
   }
 
   .kicker {
@@ -71,7 +63,7 @@
   }
 
   h1 {
-    font-size: clamp(24px, 3.2vw, 34px);
+    font-size: 34px;
     font-weight: 800;
     letter-spacing: -0.5px;
     color: var(--ink);
@@ -88,7 +80,6 @@
   .hero-nums {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap;
   }
 
   .hero-num {
@@ -97,12 +88,12 @@
     border-radius: 12px;
     padding: 12px 18px;
     text-align: center;
-    min-width: 100px;
+    min-width: 104px;
   }
 
   .hero-num b {
     display: block;
-    font-size: 26px;
+    font-size: 28px;
     line-height: 1;
     font-weight: 800;
     color: var(--ink);
@@ -122,46 +113,11 @@
     font-weight: 600;
   }
 
-  /* 交互提示条 */
-  .hint-bar {
-    background: var(--seal-soft);
-    border: 1px solid var(--seal-border);
-    border-radius: 10px;
-    padding: 8px 16px;
-    font-size: 13px;
-    color: #923e11;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .hint-bar a {
-    color: var(--seal);
-    font-weight: 700;
-    text-decoration: underline;
-  }
-
   /* 主画布网格 */
   .grid-canvas {
     display: grid;
     grid-template-columns: 140px 1fr 1fr 1fr;
     column-gap: 24px;
-  }
-
-  @media (max-width: 1080px) {
-    .grid-canvas {
-      grid-template-columns: 1fr;
-      row-gap: 32px;
-    }
-    .layer-label {
-      border-right: none !important;
-      border-bottom: 2px dashed var(--line);
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-    }
   }
 
   /* 赛道表头 */
@@ -235,7 +191,7 @@
     padding: 14px 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     position: relative;
   }
 
@@ -253,18 +209,7 @@
     z-index: 2;
   }
 
-  @media (max-width: 1080px) {
-    .cell-connected::after { display: none; }
-  }
-
-  /* 可点击白卡纸卡片 */
-  a.card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    cursor: pointer;
-  }
-
+  /* eli5 白卡纸卡片 */
   .card {
     background: var(--paper);
     border: 1px solid var(--line);
@@ -272,13 +217,6 @@
     padding: 16px 18px;
     position: relative;
     box-shadow: 0 1px 3px rgba(32, 52, 74, 0.04);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  }
-
-  a.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(32, 52, 74, 0.09);
-    border-color: #cbd5e1;
   }
 
   .card-top {
@@ -294,24 +232,6 @@
     font-weight: 700;
     color: var(--ink);
     letter-spacing: -0.3px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  a.card:hover .repo-name {
-    color: var(--seal);
-  }
-
-  .ext-arrow {
-    font-size: 12px;
-    color: var(--muted);
-    transition: transform 0.15s ease, color 0.15s ease;
-  }
-
-  a.card:hover .ext-arrow {
-    transform: translate(2px, -2px);
-    color: var(--seal);
   }
 
   /* 标签 Pill */
@@ -403,18 +323,16 @@
 
   /* 底部 Callout 条 */
   .callout-footer {
-    margin-top: 32px;
+    margin-top: 26px;
     background: var(--navy-soft);
     border: 1px solid var(--navy-border);
     border-radius: 14px;
-    padding: 16px 22px;
+    padding: 14px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
     color: var(--ink);
-    flex-wrap: wrap;
-    gap: 14px;
   }
 
   .callout-footer b {
@@ -431,308 +349,416 @@
     color: var(--navy);
     margin-right: 6px;
   }
-
-  footer.author {
-    margin-top: 24px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  footer.author a {
-    color: var(--seal);
-    text-decoration: none;
-    font-weight: 600;
-  }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <header class="cover">
-    <div>
-      <span class="kicker">SYSTEM TOPOLOGY // INTERACTIVE ELI5 EDITION</span>
-      <h1>从数据到决策：14 个项目的全景工作流拓扑</h1>
-      <div class="deck">四层流水线 × 三条业务赛道 · 确定性代码计算，大模型负责归因与表达</div>
+<header class="cover">
+  <div>
+    <span class="kicker">SYSTEM TOPOLOGY // ELI5 EDITION</span>
+    <h1>从数据到决策：14 个项目的全景工作流拓扑</h1>
+    <div class="deck">四层流水线 × 三条业务赛道 · 确定性代码计算，大模型负责归因与表达</div>
+  </div>
+  <div class="hero-nums">
+    <div class="hero-num">
+      <b>14</b>
+      <span>公开仓库</span>
     </div>
-    <div class="hero-nums">
-      <div class="hero-num">
-        <b>14</b>
-        <span>公开仓库</span>
-      </div>
-      <div class="hero-num">
-        <b>3<em>轨</em></b>
-        <span>端到端闭环</span>
-      </div>
-      <div class="hero-num">
-        <b>4<em>层</em></b>
-        <span>渐进式流水线</span>
-      </div>
-      <div class="hero-num">
-        <b>46<em>★</em></b>
-        <span>开源外部认可</span>
-      </div>
+    <div class="hero-num">
+      <b>3<em>轨</em></b>
+      <span>端到端闭环</span>
     </div>
-  </header>
+    <div class="hero-num">
+      <b>4<em>层</em></b>
+      <span>渐进式流水线</span>
+    </div>
+    <div class="hero-num">
+      <b>46<em>★</em></b>
+      <span>开源外部认可</span>
+    </div>
+  </div>
+</header>
 
-  <div class="hint-bar">
-    <span>💡 <b>交互提示：</b>点击下方任意仓库卡片，可直接在新窗口跳转打开对应的 GitHub 开源项目。</span>
-    <span>个人主页：<a href="https://github.com/zhangpelf" target="_blank">github.com/zhangpelf ↗</a></span>
+<div class="grid-canvas">
+  <!-- 列表头 -->
+  <div class="col-head"></div>
+  <div class="col-head">
+    <div class="track-banner tb-a">
+      <h2>赛道 A · 经营分析与策略运营</h2>
+      <p>面向 BA / 业务经营分析 / 商业化策略</p>
+    </div>
+  </div>
+  <div class="col-head">
+    <div class="track-banner tb-b">
+      <h2>赛道 B · 产业投研与国资招商</h2>
+      <p>面向 产业投资 / 战略投资 / 政府招商</p>
+    </div>
+  </div>
+  <div class="col-head">
+    <div class="track-banner tb-c">
+      <h2>赛道 C · 量化研究与多智能体决策</h2>
+      <p>面向 金融科技 / 量化研究 / AI Agent 工程师</p>
+    </div>
   </div>
 
-  <div class="grid-canvas">
-    <!-- 列表头 -->
-    <div class="col-head"></div>
-    <div class="col-head">
-      <div class="track-banner tb-a">
-        <h2>赛道 A · 经营分析与策略运营</h2>
-        <p>面向 BA / 业务经营分析 / 商业化策略</p>
+  <!-- Row 1: 数据感知 -->
+  <div class="layer-label">
+    <span class="sec-num">01 / 感知</span>
+    <div class="layer-title">数据采集底座</div>
+    <div class="layer-desc">结构化与非结构化<br>全源数据自动化摄入</div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card card-ingest ca">
+      <div class="card-top">
+        <span class="repo-name">业务交易明细流</span>
+        <span class="tag tag-seal">SQL / CSV</span>
       </div>
+      <ul>
+        <li>Trino / Hive SQL 离线数仓定时抽取</li>
+        <li>实时 CSV 交易流水监听与 Schema 模式校验</li>
+      </ul>
     </div>
-    <div class="col-head">
-      <div class="track-banner tb-b">
-        <h2>赛道 B · 产业投研与国资招商</h2>
-        <p>面向 产业投资 / 战略投资 / 政府招商</p>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card card-ingest cb">
+      <div class="card-top">
+        <span class="repo-name">文档与多源舆情</span>
+        <span class="tag tag-navy">OCR / WEB</span>
       </div>
+      <ul>
+        <li><b>unlimited-ocr-skill</b>：3B 视觉模型提取跨页报表</li>
+        <li><b>AnySearch</b>：全网研报实时检索与 114+ 份语料库</li>
+      </ul>
     </div>
-    <div class="col-head">
-      <div class="track-banner tb-c">
-        <h2>赛道 C · 量化研究与多智能体决策</h2>
-        <p>面向 金融科技 / 量化研究 / AI Agent 工程师</p>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card-ingest cc">
+      <div class="card-top">
+        <span class="repo-name">量价与财务底座</span>
+        <span class="tag tag-green">AKSHARE</span>
       </div>
+      <ul>
+        <li>A 股实时行情、历史高频/日线全量数据</li>
+        <li>上市公司财务三张表与宏观经济指标同步</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row-divider"></div>
+
+  <!-- Row 2: 知识与规则 -->
+  <div class="layer-label">
+    <span class="sec-num">02 / 约束</span>
+    <div class="layer-title">知识与规则中枢</div>
+    <div class="layer-desc">固化方法论与先验<br>构筑防幻觉防御护栏</div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card ca">
+      <div class="card-top">
+        <span class="repo-name">transaction-ops-skill</span>
+        <span class="tag tag-seal">SOP</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>五步漏斗与中台指标字典</div>
+      <ul>
+        <li>转化链路标准化：冒发 ➔ 举手 ➔ 给单 ➔ 完单</li>
+        <li>供需双稳态判别雷达（缺供态 vs 缺需态）</li>
+        <li>长短单结构 + 业务品类变迁<b>双动因归因算子</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card cb">
+      <div class="card-top">
+        <span class="repo-name">wiki-compiler</span>
+        <span class="tag tag-stars">★ 46 STARS</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>三层卷积知识压缩架构</div>
+      <ul>
+        <li>Raw ➔ Refined ➔ Summary 逐层收敛特征</li>
+        <li>知识图谱生成与矛盾挖掘引擎 (Karpathy 理念)</li>
+      </ul>
+    </div>
+    <div class="card cb">
+      <div class="card-top">
+        <span class="repo-name">industry-rag</span>
+        <span class="tag tag-navy">RAG</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>长文本研报混合语义检索</div>
+      <ul>
+        <li>BGE-small-zh 密集向量 + BM25 稀疏精准召回</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card cc">
+      <div class="card-top">
+        <span class="repo-name">stock-pricing-capm</span>
+        <span class="tag tag-green">PRICING</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>资产定价与相对估值先验</div>
+      <ul>
+        <li>CAPM · DDM 贴现模型与估值坐标系</li>
+      </ul>
+    </div>
+    <div class="card cc">
+      <div class="card-top">
+        <span class="repo-name">q-learning-shanghai</span>
+        <span class="tag tag-green">RL</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>状态空间离散化与回报矩阵</div>
+      <ul>
+        <li>Tabular Q-Learning 策略构建与基准回测</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row-divider"></div>
+
+  <!-- Row 3: 分析引擎 -->
+  <div class="layer-label">
+    <span class="sec-num">03 / 推理</span>
+    <div class="layer-title">核心工作流引擎</div>
+    <div class="layer-desc">LangGraph 状态机<br>确定性计算 + 智能体编排</div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card ca">
+      <div class="card-top">
+        <span class="repo-name">business-analysis-agent</span>
+        <span class="tag tag-seal">LANGGRAPH</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>6 节点确定性经营诊断状态机</div>
+      <ul>
+        <li><code>validate</code> ➔ <code>metrics</code>：纯代码计算核心 KPI</li>
+        <li><code>anomalies</code>：3σ 异常定位 ➔ <code>diagnose</code>：双动因穿透</li>
+        <li><code>recommendations</code>：强证据约束建议 ➔ 自动出周报</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card cb">
+      <div class="card-top">
+        <span class="repo-name">industry-research-engine</span>
+        <span class="tag tag-navy">11 NODES</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>Aegis 投研多智能体协同流水线</div>
+      <ul>
+        <li>Supervisor 意图识别与条件路由决策</li>
+        <li>行情 / 舆情 / 财报并行抓取 ➔ 三情景推演</li>
+        <li>规则引擎严苛质检（质量打分 Score ≥ 80 放行）</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell cell-connected">
+    <div class="card cc">
+      <div class="card-top">
+        <span class="repo-name">ashare-factor-agent</span>
+        <span class="tag tag-stars">★ 4 STARS</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>因子挖掘流水线 + ARIS 对抗评审</div>
+      <ul>
+        <li>9 类因子批量挖掘 ➔ IC/IR 检验 ➔ FM 截面回归</li>
+        <li><b>ARIS 对抗式评审</b>：专门攻击过拟合与数据泄漏</li>
+        <li>24 张出版级可视化图表自动化输出</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row-divider"></div>
+
+  <!-- Row 4: 成果交付 -->
+  <div class="layer-label">
+    <span class="sec-num">04 / 交付</span>
+    <div class="layer-title">业务闭环交付</div>
+    <div class="layer-desc">高规格专业产出<br>直接推动一线管理动作</div>
+  </div>
+  <div class="cell">
+    <div class="card ca">
+      <div class="card-top">
+        <span class="repo-name">prd-writer-skill & n8n</span>
+        <span class="tag tag-seal">WEBHOOK</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>策略规范化与企微战报自动推播</div>
+      <ul>
+        <li>经营异动诊断自动转化为产品与策略 PRD</li>
+        <li>n8n Webhook 定时向企微 / 飞书推送战报闭环</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell">
+    <div class="card cb">
+      <div class="card-top">
+        <span class="repo-name">touyan2</span>
+        <span class="tag tag-navy">7-CHAPTERS</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>地方国资招商落地投研分析引擎</div>
+      <ul>
+        <li>BP 转投研 / 投研重排版双模式 · 标准 Word 输出</li>
+      </ul>
+    </div>
+    <div class="card cb">
+      <div class="card-top">
+        <span class="repo-name">lixiang</span>
+        <span class="tag tag-navy">PROPOSAL</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>投资立项建议书生成器</div>
+      <ul>
+        <li>结构化项目评估数据 ➔ 投决会标准 .docx 文档</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cell">
+    <div class="card cc">
+      <div class="card-top">
+        <span class="repo-name">cn-parallel & debate</span>
+        <span class="tag tag-green">DECISION CARD</span>
+      </div>
+      <div class="card-lead"><span class="dot"></span>双路博弈辩论与留痕决策大屏</div>
+      <ul>
+        <li>基本面质量派 (Serenity) vs 量价动量派 (AkShare)</li>
+        <li>YAML 驱动对抗博弈 ➔ 生成带辩论留痕的决策卡</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 核心项目工作流全景展开 -->
+  <div style="margin-top: 48px; border-top: 2px solid var(--ink); padding-top: 32px;">
+    <div style="margin-bottom: 24px;">
+      <span class="kicker">DEEP-DIVE WORKFLOWS // 核心工作流拆解</span>
+      <h2 style="font-size: 26px; font-weight: 800; color: var(--ink);">6 大核心项目的真实工作流链路</h2>
+      <p style="font-size: 14.5px; color: var(--sub); margin-top: 4px;">由确定性状态机与多智能体驱动的真实生产管线，附带节点契约与逻辑流转</p>
     </div>
 
-    <!-- Row 1: 数据感知 -->
-    <div class="layer-label">
-      <span class="sec-num">01 / 感知</span>
-      <div class="layer-title">数据采集底座</div>
-      <div class="layer-desc">结构化与非结构化<br>全源数据自动化摄入</div>
-    </div>
-    <div class="cell cell-connected">
-      <div class="card card-ingest ca">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px;">
+      
+      <!-- 1. 经营分析 Agent -->
+      <div class="card" style="border-left: 4px solid var(--seal);">
         <div class="card-top">
-          <span class="repo-name">业务交易明细流</span>
-          <span class="tag tag-seal">SQL / CSV</span>
+          <a class="repo-name" href="https://github.com/zhangpelf/business-analysis-agent" target="_blank">business-analysis-agent <span class="ext-arrow">↗</span></a>
+          <span class="tag tag-seal">6-NODE LANGGRAPH</span>
         </div>
-        <ul>
-          <li>Trino / Hive SQL 离线数仓定时抽取</li>
-          <li>实时 CSV 交易流水监听与 Schema 模式校验</li>
-        </ul>
+        <div class="card-lead" style="color: #b84c17;"><span class="dot" style="background: var(--seal);"></span>确定性经营诊断与异常归因状态机</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>validate_data</b>: CSV Schema 校验 (orders ≤ sessions)<br>
+          ↓<br>
+          2. <b>calculate_metrics</b>: 纯代码算子计算转化率、AOV、贡献毛利<br>
+          ↓<br>
+          3. <b>detect_anomalies</b>: 3σ 偏离定位 · 收入环比跌≥10% / 毛利跌≥5pp<br>
+          ↓<br>
+          4. <b>diagnose_drivers</b>: 顺序分解 (流量效应 + 转化效应 + 客单价效应)<br>
+          ↓<br>
+          5. <b>generate_recommendations</b>: 强证据链约束建议 (无证据不发散)<br>
+          ↓<br>
+          6. <b>render_report</b>: 导出结构化 Markdown / HTML 周度诊断周报
+        </div>
       </div>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card card-ingest cb" href="https://github.com/zhangpelf/unlimited-ocr-skill" target="_blank" title="查看 unlimited-ocr-skill">
+
+      <!-- 2. Aegis 投研平台 -->
+      <div class="card" style="border-left: 4px solid var(--navy);">
         <div class="card-top">
-          <span class="repo-name">文档与多源舆情 <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-navy">OCR / WEB</span>
+          <a class="repo-name" href="https://github.com/zhangpelf/industry-research-engine" target="_blank">industry-research-engine <span class="ext-arrow">↗</span></a>
+          <span class="tag tag-navy">11-NODE MULTI-AGENT</span>
         </div>
-        <ul>
-          <li><b>unlimited-ocr-skill</b>：3B 视觉模型提取跨页报表</li>
-          <li><b>AnySearch</b>：全网研报实时检索与 114+ 份语料库</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell cell-connected">
-      <div class="card card-ingest cc">
-        <div class="card-top">
-          <span class="repo-name">量价与财务底座</span>
-          <span class="tag tag-green">AKSHARE</span>
+        <div class="card-lead" style="color: var(--navy);"><span class="dot" style="background: var(--navy);"></span>Aegis 动态路由与情景推演工作流</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>Supervisor</b>: 意图识别与动态条件路由分支<br>
+          ↓ [并行抓取]<br>
+          2. <b>fetch_market</b> (实时行情) + <b>fetch_news</b> (舆情) + <b>fetch_fin</b> (财报)<br>
+          ↓<br>
+          3. <b>scenario_analysis</b>: 三情景推演 (乐观 / 基准 / 悲观)<br>
+          ↓<br>
+          4. <b>merge_results</b> ➔ <b>write_report</b> ➔ <b>render_html</b><br>
+          ↓ [门禁拦截]<br>
+          5. <b>quality_check</b>: 章节完整性与数据点质检 (Score ≥ 80 放行)
         </div>
-        <ul>
-          <li>A 股实时行情、历史高频/日线全量数据</li>
-          <li>上市公司财务三张表与宏观经济指标同步</li>
-        </ul>
       </div>
-    </div>
 
-    <div class="row-divider"></div>
-
-    <!-- Row 2: 知识与规则 -->
-    <div class="layer-label">
-      <span class="sec-num">02 / 约束</span>
-      <div class="layer-title">知识与规则中枢</div>
-      <div class="layer-desc">固化方法论与先验<br>构筑防幻觉防御护栏</div>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card ca" href="https://github.com/zhangpelf/transaction-ops-skill" target="_blank" title="查看 transaction-ops-skill">
+      <!-- 3. 量化因子流水线 -->
+      <div class="card" style="border-left: 4px solid var(--green);">
         <div class="card-top">
-          <span class="repo-name">transaction-ops-skill <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-seal">SOP</span>
+          <a class="repo-name" href="https://github.com/zhangpelf/ashare-factor-agent-workflow" target="_blank">ashare-factor-agent <span class="ext-arrow">↗</span></a>
+          <span class="tag tag-stars">★ 4 STARS · 6-STAGE</span>
         </div>
-        <div class="card-lead"><span class="dot"></span>五步漏斗与中台指标字典</div>
-        <ul>
-          <li>转化链路标准化：冒发 ➔ 举手 ➔ 给单 ➔ 完单</li>
-          <li>供需双稳态判别雷达（缺供态 vs 缺需态）</li>
-          <li>长短单结构 + 业务品类变迁<b>双动因归因算子</b></li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card cb" href="https://github.com/zhangpelf/wiki-compiler" target="_blank" title="查看 wiki-compiler">
+        <div class="card-lead" style="color: var(--green);"><span class="dot" style="background: var(--green);"></span>因子自动化挖掘与 ARIS 对抗评审</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>因子定义与 AST 编译</b>: 静态依赖检查 · 4 层缓存复用<br>
+          ↓<br>
+          2. <b>批量因子计算</b>: 9 类因子矩阵运算 (避免未来信息泄漏)<br>
+          ↓<br>
+          3. <b>统计有效性检验</b>: IC / IR 均值与 t 统计量 · 10 分组回测<br>
+          ↓<br>
+          4. <b>Fama-MacBeth 回归</b>: 风险溢价与因子截面收益持续性验证<br>
+          ↓ [对抗质检]<br>
+          5. <b>ARIS 对抗评审</b>: 执行者 ≠ 审阅者 · 主动攻击过拟合与数据作假<br>
+          ↓<br>
+          6. <b>报告与图表导出</b>: 24 张出版级分析图表矩阵自动化生成
+        </div>
+      </div>
+
+      <!-- 4. 三层知识编译 -->
+      <div class="card" style="border-left: 4px solid var(--navy);">
         <div class="card-top">
-          <span class="repo-name">wiki-compiler <span class="ext-arrow">↗</span></span>
+          <a class="repo-name" href="https://github.com/zhangpelf/wiki-compiler" target="_blank">wiki-compiler <span class="ext-arrow">↗</span></a>
           <span class="tag tag-stars">★ 46 STARS</span>
         </div>
-        <div class="card-lead"><span class="dot"></span>三层卷积知识压缩架构</div>
-        <ul>
-          <li>Raw ➔ Refined ➔ Summary 逐层收敛特征</li>
-          <li>知识图谱生成与矛盾挖掘引擎 (Karpathy 理念)</li>
-        </ul>
-      </a>
-      <a class="card cb" href="https://github.com/zhangpelf/industry-rag" target="_blank" title="查看 industry-rag">
-        <div class="card-top">
-          <span class="repo-name">industry-rag <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-navy">RAG</span>
+        <div class="card-lead" style="color: var(--navy);"><span class="dot" style="background: var(--navy);"></span>三层卷积渐进式知识压缩与图谱引擎</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>Layer 1 (Raw)</b>: 10 万字全量原始资料/研报扫描件持久化留痕<br>
+          ↓ [CNN 感受野逐层收缩]<br>
+          2. <b>Layer 2 (Refined)</b>: 结构化精炼 Markdown 提取 + 双向反向链接网<br>
+          ↓<br>
+          3. <b>Layer 3 (Summary)</b>: 原子化标签索引 (YAML Frontmatter) 自动生成<br>
+          ↓<br>
+          4. <b>Graph & Contradiction</b>: 跨研报知识图谱构建与观点冲突挖掘
         </div>
-        <div class="card-lead"><span class="dot"></span>长文本研报混合语义检索</div>
-        <ul>
-          <li>BGE-small-zh 密集向量 + BM25 稀疏精准召回</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card cc" href="https://github.com/zhangpelf/stock-pricing-capm-tutorial" target="_blank" title="查看 stock-pricing-capm-tutorial">
-        <div class="card-top">
-          <span class="repo-name">stock-pricing-capm <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-green">PRICING</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>资产定价与相对估值先验</div>
-        <ul>
-          <li>CAPM · DDM 贴现模型与估值坐标系</li>
-        </ul>
-      </a>
-      <a class="card cc" href="https://github.com/zhangpelf/q-learning-shanghai-index" target="_blank" title="查看 q-learning-shanghai-index">
-        <div class="card-top">
-          <span class="repo-name">q-learning-shanghai <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-green">RL</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>状态空间离散化与回报矩阵</div>
-        <ul>
-          <li>Tabular Q-Learning 策略构建与基准回测</li>
-        </ul>
-      </a>
-    </div>
+      </div>
 
-    <div class="row-divider"></div>
+      <!-- 5. 国资招商尽调 -->
+      <div class="card" style="border-left: 4px solid var(--navy);">
+        <div class="card-top">
+          <a class="repo-name" href="https://github.com/zhangpelf/touyan2" target="_blank">touyan2 & lixiang <span class="ext-arrow">↗</span></a>
+          <span class="tag tag-navy">DUAL-MODE SOP</span>
+        </div>
+        <div class="card-lead" style="color: var(--navy);"><span class="dot" style="background: var(--navy);"></span>地方国资招商落地投研双模式生成引擎</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>输入结构化</b>: 企业商业计划书 (BP) 提取 ➔ JSON 模式校验<br>
+          ↓ [双模式路由分流]<br>
+          2. <b>模式 1: BP转投研 (6步)</b>: 提取 ➔ 交叉核验 ➔ 政策对齐 ➔ 7章节渲染<br>
+          3. <b>模式 2: 投研重排版 (5步)</b>: 段落清洗 ➔ 样式重构 ➔ 统一视觉规范<br>
+          ↓<br>
+          4. <b>投决交付</b>: 印刷级 7 章节尽调报告 + 标准投资立项建议书 (.docx)
+        </div>
+      </div>
 
-    <!-- Row 3: 分析引擎 -->
-    <div class="layer-label">
-      <span class="sec-num">03 / 推理</span>
-      <div class="layer-title">核心工作流引擎</div>
-      <div class="layer-desc">LangGraph 状态机<br>确定性计算 + 智能体编排</div>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card ca" href="https://github.com/zhangpelf/business-analysis-agent" target="_blank" title="查看 business-analysis-agent">
+      <!-- 6. 需求工程与自动化 -->
+      <div class="card" style="border-left: 4px solid var(--seal);">
         <div class="card-top">
-          <span class="repo-name">business-analysis-agent <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-seal">LANGGRAPH</span>
+          <a class="repo-name" href="https://github.com/zhangpelf/prd-writer-skill" target="_blank">prd-writer-skill & n8n <span class="ext-arrow">↗</span></a>
+          <span class="tag tag-seal">DUAL-COMPONENT</span>
         </div>
-        <div class="card-lead"><span class="dot"></span>6 节点确定性经营诊断状态机</div>
-        <ul>
-          <li><code>validate</code> ➔ <code>metrics</code>：纯代码计算核心 KPI</li>
-          <li><code>anomalies</code>：3σ 异常定位 ➔ <code>diagnose</code>：双动因穿透</li>
-          <li><code>recommendations</code>：强证据约束建议 ➔ 自动出周报</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card cb" href="https://github.com/zhangpelf/industry-research-engine" target="_blank" title="查看 industry-research-engine">
-        <div class="card-top">
-          <span class="repo-name">industry-research-engine <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-navy">11 NODES</span>
+        <div class="card-lead" style="color: #b84c17;"><span class="dot" style="background: var(--seal);"></span>策略需求规范化与企微战报闭环流水线</div>
+        <div style="background: #faf8f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink); line-height: 1.8;">
+          1. <b>需求输入</b>: 一句话需求或经营分析异动归因建议<br>
+          ↓<br>
+          2. <b>Claude Code Skill</b>: 自动生成 7 大章节 PRD + Given/When/Then 测试例<br>
+          ↓ [双路径落盘]<br>
+          3. <b>存储备份</b>: 本地主路径 `docs/` + 全量历史版本无损合并<br>
+          ↓<br>
+          4. <b>n8n 编排路由</b>: Webhook 触发 ➔ 自动向企业微信 / 飞书推播异动战报
         </div>
-        <div class="card-lead"><span class="dot"></span>Aegis 投研多智能体协同流水线</div>
-        <ul>
-          <li>Supervisor 意图识别与条件路由决策</li>
-          <li>行情 / 舆情 / 财报并行抓取 ➔ 三情景推演</li>
-          <li>规则引擎严苛质检（质量打分 Score ≥ 80 放行）</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell cell-connected">
-      <a class="card cc" href="https://github.com/zhangpelf/ashare-factor-agent-workflow" target="_blank" title="查看 ashare-factor-agent-workflow">
-        <div class="card-top">
-          <span class="repo-name">ashare-factor-agent <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-stars">★ 4 STARS</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>因子挖掘流水线 + ARIS 对抗评审</div>
-        <ul>
-          <li>9 类因子批量挖掘 ➔ IC/IR 检验 ➔ FM 截面回归</li>
-          <li><b>ARIS 对抗式评审</b>：专门攻击过拟合与数据泄漏</li>
-          <li>24 张出版级可视化图表自动化输出</li>
-        </ul>
-      </a>
-    </div>
+      </div>
 
-    <div class="row-divider"></div>
-
-    <!-- Row 4: 成果交付 -->
-    <div class="layer-label">
-      <span class="sec-num">04 / 交付</span>
-      <div class="layer-title">业务闭环交付</div>
-      <div class="layer-desc">高规格专业产出<br>直接推动一线管理动作</div>
-    </div>
-    <div class="cell">
-      <a class="card ca" href="https://github.com/zhangpelf/prd-writer-skill" target="_blank" title="查看 prd-writer-skill">
-        <div class="card-top">
-          <span class="repo-name">prd-writer-skill & n8n <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-seal">WEBHOOK</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>策略规范化与企微战报自动推播</div>
-        <ul>
-          <li>经营异动诊断自动转化为产品与策略 PRD</li>
-          <li>n8n Webhook 定时向企微 / 飞书推送战报闭环</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell">
-      <a class="card cb" href="https://github.com/zhangpelf/touyan2" target="_blank" title="查看 touyan2">
-        <div class="card-top">
-          <span class="repo-name">touyan2 <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-navy">7-CHAPTERS</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>地方国资招商落地投研分析引擎</div>
-        <ul>
-          <li>BP 转投研 / 投研重排版双模式 · 标准 Word 输出</li>
-        </ul>
-      </a>
-      <a class="card cb" href="https://github.com/zhangpelf/lixiang" target="_blank" title="查看 lixiang">
-        <div class="card-top">
-          <span class="repo-name">lixiang <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-navy">PROPOSAL</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>投资立项建议书生成器</div>
-        <ul>
-          <li>结构化项目评估数据 ➔ 投决会标准 .docx 文档</li>
-        </ul>
-      </a>
-    </div>
-    <div class="cell">
-      <a class="card cc" href="https://github.com/zhangpelf/cn-parallel-analysis" target="_blank" title="查看 cn-parallel-analysis 与 debate-platform">
-        <div class="card-top">
-          <span class="repo-name">cn-parallel & debate <span class="ext-arrow">↗</span></span>
-          <span class="tag tag-green">DECISION CARD</span>
-        </div>
-        <div class="card-lead"><span class="dot"></span>双路博弈辩论与留痕决策大屏</div>
-        <ul>
-          <li>基本面质量派 (Serenity) vs 量价动量派 (AkShare)</li>
-          <li>YAML 驱动对抗博弈 ➔ 生成带辩论留痕的决策卡</li>
-        </ul>
-      </a>
     </div>
   </div>
 
-  <div class="callout-footer">
-    <div>
-      <span class="axiom-badge">核心准则 1</span><b>确定性代码负责算账</b>：核心 KPI 与统计指标由纯代码执行，拒绝把大模型当计算器。
-    </div>
-    <div>
-      <span class="axiom-badge">核心准则 2</span><b>证据链强约束</b>：每条业务与投资建议必须绑定底层数据源，杜绝模型幻觉。
-    </div>
+<div class="callout-footer">
+  <div>
+    <span class="axiom-badge">核心准则 1</span><b>确定性代码负责算账</b>：核心 KPI 与统计指标由纯代码执行，拒绝把大模型当计算器。
   </div>
-
-  <footer class="author">
-    Peifu Zhang (张培福) · 南京理工大学 产业经济学 ｜ <a href="https://github.com/zhangpelf" target="_blank">github.com/zhangpelf</a>
-  </footer>
+  <div>
+    <span class="axiom-badge">核心准则 2</span><b>证据链强约束</b>：每条业务与投资建议必须绑定底层数据源，杜绝模型幻觉。
+  </div>
 </div>
 
 </body>
