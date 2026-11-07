@@ -14,6 +14,12 @@
 
 ---
 
+## 🗺️ 全景系统架构与工作流拓扑 (System Topology)
+
+<p align="center">
+  <img src="assets/system_topology.png" alt="Peifu Zhang System Topology" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+</p>
+
 ## 🎯 核心能力与定位
 
 我的工作与开源项目聚焦于将**严谨的商业经营洞察、产业投研方法论**与**现代软件工程 / LLM Multi-Agent 架构**深度融合：
