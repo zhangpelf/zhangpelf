@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从数据到决策：14 个项目的全景工作流拓扑 · 张培福 (Peifu Zhang)</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --paper: #ffffff;
+    --ink: #20344a;
+    --sub: #5c6b7a;
+    --muted: #97a2ad;
+    --line: #e6e3dc;
+    --line-soft: #f0ede6;
+    
+    /* eli5 经典强调色 */
+    --seal: #e06a2b;
+    --seal-soft: #fdf0e7;
+    --seal-border: #f3d3bd;
+    
+    --navy: #20344a;
+    --navy-soft: #eaf1f6;
+    --navy-border: #cbdbe7;
+    
+    --green: #2f7a5b;
+    --green-soft: #eaf5ef;
+    --green-border: #c5e4d4;
+    
+    --amber: #96631a;
+    --amber-soft: #fbf4e6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 40px 24px 60px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* 顶栏 Hero 区块 */
+  header.cover {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .kicker {
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: var(--seal);
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: clamp(24px, 3.2vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .deck {
+    font-size: 15px;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+
+  /* 顶部 4 组关键数字 */
+  .hero-nums {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-num {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 18px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .hero-num b {
+    display: block;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-num b em {
+    font-style: normal;
+    color: var(--seal);
+  }
+
+  .hero-num span {
+    display: block;
+    font-size: 12px;
+    color: var(--sub);
+    margin-top: 5px;
+    font-weight: 600;
+  }
+
+  /* 交互提示条 */
+  .hint-bar {
+    background: var(--seal-soft);
+    border: 1px solid var(--seal-border);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #923e11;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hint-bar a {
+    color: var(--seal);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* 主画布网格 */
+  .grid-canvas {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr 1fr;
+    column-gap: 24px;
+  }
+
+  @media (max-width: 1080px) {
+    .grid-canvas {
+      grid-template-columns: 1fr;
+      row-gap: 32px;
+    }
+    .layer-label {
+      border-right: none !important;
+      border-bottom: 2px dashed var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+  }
+
+  /* 赛道表头 */
+  .col-head {
+    padding-bottom: 16px;
+  }
+
+  .track-banner {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    border-top: 4px solid;
+  }
+
+  .tb-a { border-top-color: var(--seal); }
+  .tb-a h2 { color: var(--seal); }
+  .tb-b { border-top-color: var(--navy); }
+  .tb-b h2 { color: var(--navy); }
+  .tb-c { border-top-color: var(--green); }
+  .tb-c h2 { color: var(--green); }
+
+  .track-banner h2 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+  }
+
+  .track-banner p {
+    font-size: 12.5px;
+    color: var(--sub);
+    margin-top: 3px;
+  }
+
+  /* 左侧行标题标尺 */
+  .layer-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 14px;
+    border-right: 1px dashed var(--line);
+    padding-right: 18px;
+  }
+
+  .sec-num {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--seal);
+    font-variant-numeric: tabular-nums;
+    text-transform: uppercase;
+  }
+
+  .layer-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-top: 4px;
+    letter-spacing: -0.3px;
+  }
+
+  .layer-desc {
+    font-size: 12.5px;
+    color: var(--sub);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* 单元格与卡片 */
+  .cell {
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+
+  /* 下行连接指示箭头 */
+  .cell-connected::after {
+    content: "↓";
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 700;
+    color: #b8c2cc;
+    line-height: 1;
+    z-index: 2;
+  }
+
+  @media (max-width: 1080px) {
+    .cell-connected::after { display: none; }
+  }
+
+  /* 可点击白卡纸卡片 */
+  a.card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(32, 52, 74, 0.04);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  a.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(32, 52, 74, 0.09);
+    border-color: #cbd5e1;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .repo-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  a.card:hover .repo-name {
+    color: var(--seal);
+  }
+
+  .ext-arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  a.card:hover .ext-arrow {
+    transform: translate(2px, -2px);
+    color: var(--seal);
+  }
+
+  /* 标签 Pill */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-family: ui-monospace, Menlo, monospace;
+  }
+
+  .tag-seal { background: var(--seal-soft); color: var(--seal); border: 1px solid var(--seal-border); }
+  .tag-navy { background: var(--navy-soft); color: var(--navy); border: 1px solid var(--navy-border); }
+  .tag-green { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-border); }
+  .tag-stars { background: var(--amber-soft); color: var(--amber); border: 1px solid #ebd9b5; font-weight: 800; }
+  .tag-gray { background: #f2f0ea; color: var(--sub); }
+
+  .card-lead {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .ca .card-lead { color: #b84c17; }
+  .ca .dot { background: var(--seal); }
+  .cb .card-lead { color: var(--navy); }
+  .cb .dot { background: var(--navy); }
+  .cc .card-lead { color: var(--green); }
+  .cc .dot { background: var(--green); }
+
+  .card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .card li {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.55;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .card li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .card li b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* 采集层卡片 (微底色便签感) */
+  .card-ingest {
+    background: #faf8f5;
+    border: 1px dashed var(--line);
+  }
+  .card-ingest .repo-name {
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+
+  /* 行分割线 */
+  .row-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: var(--line-soft);
+    margin: 4px 0;
+  }
+
+  /* 底部 Callout 条 */
+  .callout-footer {
+    margin-top: 32px;
+    background: var(--navy-soft);
+    border: 1px solid var(--navy-border);
+    border-radius: 14px;
+    padding: 16px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink);
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .callout-footer b {
+    color: var(--navy);
+  }
+
+  .axiom-badge {
+    background: #fff;
+    border: 1px solid var(--navy-border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-right: 6px;
+  }
+
+  footer.author {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer.author a {
+    color: var(--seal);
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="cover">
+    <div>
+      <span class="kicker">SYSTEM TOPOLOGY // INTERACTIVE ELI5 EDITION</span>
+      <h1>从数据到决策：14 个项目的全景工作流拓扑</h1>
+      <div class="deck">四层流水线 × 三条业务赛道 · 确定性代码计算，大模型负责归因与表达</div>
+    </div>
+    <div class="hero-nums">
+      <div class="hero-num">
+        <b>14</b>
+        <span>公开仓库</span>
+      </div>
+      <div class="hero-num">
+        <b>3<em>轨</em></b>
+        <span>端到端闭环</span>
+      </div>
+      <div class="hero-num">
+        <b>4<em>层</em></b>
+        <span>渐进式流水线</span>
+      </div>
+      <div class="hero-num">
+        <b>46<em>★</em></b>
+        <span>开源外部认可</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="hint-bar">
+    <span>💡 <b>交互提示：</b>点击下方任意仓库卡片，可直接在新窗口跳转打开对应的 GitHub 开源项目。</span>
+    <span>个人主页：<a href="https://github.com/zhangpelf" target="_blank">github.com/zhangpelf ↗</a></span>
+  </div>
+
+  <div class="grid-canvas">
+    <!-- 列表头 -->
+    <div class="col-head"></div>
+    <div class="col-head">
+      <div class="track-banner tb-a">
+        <h2>赛道 A · 经营分析与策略运营</h2>
+        <p>面向 BA / 业务经营分析 / 商业化策略</p>
+      </div>
+    </div>
+    <div class="col-head">
+      <div class="track-banner tb-b">
+        <h2>赛道 B · 产业投研与国资招商</h2>
+        <p>面向 产业投资 / 战略投资 / 政府招商</p>
+      </div>
+    </div>
+    <div class="col-head">
+      <div class="track-banner tb-c">
+        <h2>赛道 C · 量化研究与多智能体决策</h2>
+        <p>面向 金融科技 / 量化研究 / AI Agent 工程师</p>
+      </div>
+    </div>
+
+    <!-- Row 1: 数据感知 -->
+    <div class="layer-label">
+      <span class="sec-num">01 / 感知</span>
+      <div class="layer-title">数据采集底座</div>
+      <div class="layer-desc">结构化与非结构化<br>全源数据自动化摄入</div>
+    </div>
+    <div class="cell cell-connected">
+      <div class="card card-ingest ca">
+        <div class="card-top">
+          <span class="repo-name">业务交易明细流</span>
+          <span class="tag tag-seal">SQL / CSV</span>
+        </div>
+        <ul>
+          <li>Trino / Hive SQL 离线数仓定时抽取</li>
+          <li>实时 CSV 交易流水监听与 Schema 模式校验</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card card-ingest cb" href="https://github.com/zhangpelf/unlimited-ocr-skill" target="_blank" title="查看 unlimited-ocr-skill">
+        <div class="card-top">
+          <span class="repo-name">文档与多源舆情 <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-navy">OCR / WEB</span>
+        </div>
+        <ul>
+          <li><b>unlimited-ocr-skill</b>：3B 视觉模型提取跨页报表</li>
+          <li><b>AnySearch</b>：全网研报实时检索与 114+ 份语料库</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell cell-connected">
+      <div class="card card-ingest cc">
+        <div class="card-top">
+          <span class="repo-name">量价与财务底座</span>
+          <span class="tag tag-green">AKSHARE</span>
+        </div>
+        <ul>
+          <li>A 股实时行情、历史高频/日线全量数据</li>
+          <li>上市公司财务三张表与宏观经济指标同步</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row-divider"></div>
+
+    <!-- Row 2: 知识与规则 -->
+    <div class="layer-label">
+      <span class="sec-num">02 / 约束</span>
+      <div class="layer-title">知识与规则中枢</div>
+      <div class="layer-desc">固化方法论与先验<br>构筑防幻觉防御护栏</div>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card ca" href="https://github.com/zhangpelf/transaction-ops-skill" target="_blank" title="查看 transaction-ops-skill">
+        <div class="card-top">
+          <span class="repo-name">transaction-ops-skill <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-seal">SOP</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>五步漏斗与中台指标字典</div>
+        <ul>
+          <li>转化链路标准化：冒发 ➔ 举手 ➔ 给单 ➔ 完单</li>
+          <li>供需双稳态判别雷达（缺供态 vs 缺需态）</li>
+          <li>长短单结构 + 业务品类变迁<b>双动因归因算子</b></li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card cb" href="https://github.com/zhangpelf/wiki-compiler" target="_blank" title="查看 wiki-compiler">
+        <div class="card-top">
+          <span class="repo-name">wiki-compiler <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-stars">★ 46 STARS</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>三层卷积知识压缩架构</div>
+        <ul>
+          <li>Raw ➔ Refined ➔ Summary 逐层收敛特征</li>
+          <li>知识图谱生成与矛盾挖掘引擎 (Karpathy 理念)</li>
+        </ul>
+      </a>
+      <a class="card cb" href="https://github.com/zhangpelf/industry-rag" target="_blank" title="查看 industry-rag">
+        <div class="card-top">
+          <span class="repo-name">industry-rag <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-navy">RAG</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>长文本研报混合语义检索</div>
+        <ul>
+          <li>BGE-small-zh 密集向量 + BM25 稀疏精准召回</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card cc" href="https://github.com/zhangpelf/stock-pricing-capm-tutorial" target="_blank" title="查看 stock-pricing-capm-tutorial">
+        <div class="card-top">
+          <span class="repo-name">stock-pricing-capm <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-green">PRICING</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>资产定价与相对估值先验</div>
+        <ul>
+          <li>CAPM · DDM 贴现模型与估值坐标系</li>
+        </ul>
+      </a>
+      <a class="card cc" href="https://github.com/zhangpelf/q-learning-shanghai-index" target="_blank" title="查看 q-learning-shanghai-index">
+        <div class="card-top">
+          <span class="repo-name">q-learning-shanghai <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-green">RL</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>状态空间离散化与回报矩阵</div>
+        <ul>
+          <li>Tabular Q-Learning 策略构建与基准回测</li>
+        </ul>
+      </a>
+    </div>
+
+    <div class="row-divider"></div>
+
+    <!-- Row 3: 分析引擎 -->
+    <div class="layer-label">
+      <span class="sec-num">03 / 推理</span>
+      <div class="layer-title">核心工作流引擎</div>
+      <div class="layer-desc">LangGraph 状态机<br>确定性计算 + 智能体编排</div>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card ca" href="https://github.com/zhangpelf/business-analysis-agent" target="_blank" title="查看 business-analysis-agent">
+        <div class="card-top">
+          <span class="repo-name">business-analysis-agent <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-seal">LANGGRAPH</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>6 节点确定性经营诊断状态机</div>
+        <ul>
+          <li><code>validate</code> ➔ <code>metrics</code>：纯代码计算核心 KPI</li>
+          <li><code>anomalies</code>：3σ 异常定位 ➔ <code>diagnose</code>：双动因穿透</li>
+          <li><code>recommendations</code>：强证据约束建议 ➔ 自动出周报</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card cb" href="https://github.com/zhangpelf/industry-research-engine" target="_blank" title="查看 industry-research-engine">
+        <div class="card-top">
+          <span class="repo-name">industry-research-engine <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-navy">11 NODES</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>Aegis 投研多智能体协同流水线</div>
+        <ul>
+          <li>Supervisor 意图识别与条件路由决策</li>
+          <li>行情 / 舆情 / 财报并行抓取 ➔ 三情景推演</li>
+          <li>规则引擎严苛质检（质量打分 Score ≥ 80 放行）</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell cell-connected">
+      <a class="card cc" href="https://github.com/zhangpelf/ashare-factor-agent-workflow" target="_blank" title="查看 ashare-factor-agent-workflow">
+        <div class="card-top">
+          <span class="repo-name">ashare-factor-agent <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-stars">★ 4 STARS</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>因子挖掘流水线 + ARIS 对抗评审</div>
+        <ul>
+          <li>9 类因子批量挖掘 ➔ IC/IR 检验 ➔ FM 截面回归</li>
+          <li><b>ARIS 对抗式评审</b>：专门攻击过拟合与数据泄漏</li>
+          <li>24 张出版级可视化图表自动化输出</li>
+        </ul>
+      </a>
+    </div>
+
+    <div class="row-divider"></div>
+
+    <!-- Row 4: 成果交付 -->
+    <div class="layer-label">
+      <span class="sec-num">04 / 交付</span>
+      <div class="layer-title">业务闭环交付</div>
+      <div class="layer-desc">高规格专业产出<br>直接推动一线管理动作</div>
+    </div>
+    <div class="cell">
+      <a class="card ca" href="https://github.com/zhangpelf/prd-writer-skill" target="_blank" title="查看 prd-writer-skill">
+        <div class="card-top">
+          <span class="repo-name">prd-writer-skill & n8n <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-seal">WEBHOOK</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>策略规范化与企微战报自动推播</div>
+        <ul>
+          <li>经营异动诊断自动转化为产品与策略 PRD</li>
+          <li>n8n Webhook 定时向企微 / 飞书推送战报闭环</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell">
+      <a class="card cb" href="https://github.com/zhangpelf/touyan2" target="_blank" title="查看 touyan2">
+        <div class="card-top">
+          <span class="repo-name">touyan2 <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-navy">7-CHAPTERS</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>地方国资招商落地投研分析引擎</div>
+        <ul>
+          <li>BP 转投研 / 投研重排版双模式 · 标准 Word 输出</li>
+        </ul>
+      </a>
+      <a class="card cb" href="https://github.com/zhangpelf/lixiang" target="_blank" title="查看 lixiang">
+        <div class="card-top">
+          <span class="repo-name">lixiang <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-navy">PROPOSAL</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>投资立项建议书生成器</div>
+        <ul>
+          <li>结构化项目评估数据 ➔ 投决会标准 .docx 文档</li>
+        </ul>
+      </a>
+    </div>
+    <div class="cell">
+      <a class="card cc" href="https://github.com/zhangpelf/cn-parallel-analysis" target="_blank" title="查看 cn-parallel-analysis 与 debate-platform">
+        <div class="card-top">
+          <span class="repo-name">cn-parallel & debate <span class="ext-arrow">↗</span></span>
+          <span class="tag tag-green">DECISION CARD</span>
+        </div>
+        <div class="card-lead"><span class="dot"></span>双路博弈辩论与留痕决策大屏</div>
+        <ul>
+          <li>基本面质量派 (Serenity) vs 量价动量派 (AkShare)</li>
+          <li>YAML 驱动对抗博弈 ➔ 生成带辩论留痕的决策卡</li>
+        </ul>
+      </a>
+    </div>
+  </div>
+
+  <div class="callout-footer">
+    <div>
+      <span class="axiom-badge">核心准则 1</span><b>确定性代码负责算账</b>：核心 KPI 与统计指标由纯代码执行，拒绝把大模型当计算器。
+    </div>
+    <div>
+      <span class="axiom-badge">核心准则 2</span><b>证据链强约束</b>：每条业务与投资建议必须绑定底层数据源，杜绝模型幻觉。
+    </div>
+  </div>
+
+  <footer class="author">
+    Peifu Zhang (张培福) · 南京理工大学 产业经济学 ｜ <a href="https://github.com/zhangpelf" target="_blank">github.com/zhangpelf</a>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -17,7 +17,14 @@
 ## 🗺️ 全景系统架构与工作流拓扑 (System Topology)
 
 <p align="center">
-  <img src="assets/system_topology.png" alt="Peifu Zhang System Topology" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+  <a href="https://zhangpelf.github.io/zhangpelf/" target="_blank">
+    <img src="assets/system_topology.png" alt="Peifu Zhang System Topology" width="100%" style="border-radius: 14px; border: 1px solid #e6e3dc; box-shadow: 0 4px 20px rgba(32,52,74,0.06);">
+  </a>
+</p>
+<p align="center">
+  <a href="https://zhangpelf.github.io/zhangpelf/" target="_blank">
+    <strong>👉 访问在线交互版全景拓扑看板（可直接点击卡片跳转对应开源仓库） ↗</strong>
+  </a>
 </p>
 
 ## 🎯 核心能力与定位
