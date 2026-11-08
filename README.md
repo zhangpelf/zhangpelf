@@ -1,7 +1,7 @@
 # Hi there, I'm Peifu Zhang (张培福) 👋
 
 <p align="left">
-  <strong>产业经济学硕士（南京理工大学） ｜ 金融学学士（双学位/含保险学）</strong><br>
+  <strong>产业经济学硕士（南京理工大学） 
   <em>专注业务经营分析 (BA) · 平台商业化策略 · 产业投资研究 · LLM Multi-Agent 系统工程</em>
 </p>
 
